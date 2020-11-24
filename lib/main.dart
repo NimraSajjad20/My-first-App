@@ -1,4 +1,9 @@
+import 'dart:html';
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+
+import 'LoginScreen.dart';
 
 void main() {
   runApp(MyApp());
@@ -20,7 +25,8 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.amber,
+
         // This makes the visual density adapt to the platform that you run
         // the app on. For desktop platforms, the controls will be smaller and
         // closer together (more dense) than on mobile platforms.
@@ -51,6 +57,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  bool activeFlatButtonColor = true;
+  bool activeRaisedButtonColor = true;
+  bool activeFlatButtonS = true;
 
   void _incrementCounter() {
     setState(() {
@@ -61,6 +70,36 @@ class _MyHomePageState extends State<MyHomePage> {
       // called again, and so nothing would appear to happen.
       _counter++;
     });
+  }
+
+  void changeFlatButtonColor() {
+    setState(() {
+      activeFlatButtonColor = !activeFlatButtonColor;
+    });
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => LoginScreen()));
+    // if (activeFlatButtonColor == true) {
+    //  activeFlatButtonColor = false;
+    // } else {
+    //   activeFlatButtonColor = true;
+    // }
+  }
+
+  void changeFlatButton1() {
+    setState(() {
+      activeFlatButtonColor = !activeFlatButtonColor;
+    });
+  }
+
+  void changeRaisedColor() {
+    setState(() {
+      activeRaisedButtonColor = !activeRaisedButtonColor;
+    });
+    // if (activeRaisedButtonColor == true) {
+    //   activeRaisedButtonColor = false;
+    // } else {
+    //   activeRaisedButtonColor = true;
+    // }
   }
 
   @override
@@ -75,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: Text("Burnout Drowsiness"),
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
@@ -97,16 +136,38 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Row(
+              children: [Text("Hello Row")],
+            ),
             Text(
               'You have pushed the button this many times:',
             ),
             Text(
-              '$_counter',
+              '$_counter:$_counter',
               style: Theme.of(context).textTheme.headline4,
+            ),
+            FlatButton(
+              onPressed: changeFlatButtonColor,
+              child: Text('Hello Fate Button'),
+              color: activeFlatButtonColor == true ? Colors.green : Colors.red,
+            ),
+            RaisedButton(
+              onPressed: changeRaisedColor,
+              child: Text('Hello Raised Button'),
+              color: activeRaisedButtonColor == true ? Colors.blue : Colors.yellow,
+            ),
+            Text("NIMISHAH",
+                style: TextStyle(
+                  color: activeFlatButtonS ? Colors.yellow : Colors.blue,
+                )),
+            FlatButton(
+                onPressed: changeFlatButton1, child: Text('Change color'),
+            color: activeFlatButtonS == true ? Colors.black : Colors.cyan ,
             ),
           ],
         ),
       ),
+
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
